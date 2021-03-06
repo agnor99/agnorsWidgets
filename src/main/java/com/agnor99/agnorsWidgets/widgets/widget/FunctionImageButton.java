@@ -8,7 +8,9 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.*;
+import com.agnor99.agnorsWidgets.util.Point;
+import com.agnor99.agnorsWidgets.util.Dimension;
+
 import java.util.List;
 
 public class FunctionImageButton extends ImageButton implements IAdvancedWidget<FunctionImageButton> {

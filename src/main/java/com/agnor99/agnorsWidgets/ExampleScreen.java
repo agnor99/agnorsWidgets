@@ -7,7 +7,8 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 
-import java.awt.*;
+import com.agnor99.agnorsWidgets.util.Point;
+import com.agnor99.agnorsWidgets.util.Dimension;
 
 public class ExampleScreen extends Screen implements IAddButtonWrapper{
     protected ExampleScreen() {

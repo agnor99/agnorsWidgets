@@ -9,8 +9,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 
-import java.awt.Point;
-import java.awt.Dimension;
+import com.agnor99.agnorsWidgets.util.Point;
+import com.agnor99.agnorsWidgets.util.Dimension;
 import java.util.Arrays;
 
 public class InfoHover extends AbstractAdvancedWidget {

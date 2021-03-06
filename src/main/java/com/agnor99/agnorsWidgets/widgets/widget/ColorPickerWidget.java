@@ -2,17 +2,19 @@ package com.agnor99.agnorsWidgets.widgets.widget;
 
 import com.agnor99.agnorsWidgets.AgnorsWidgets;
 import com.agnor99.agnorsWidgets.IAddButtonWrapper;
+import com.agnor99.agnorsWidgets.util.CustomColor;
+import com.agnor99.agnorsWidgets.util.Point;
+import com.agnor99.agnorsWidgets.util.Dimension;
 import com.agnor99.agnorsWidgets.widgets.AbstractAdvancedWidget;
 import com.agnor99.agnorsWidgets.widgets.listener.WidgetChangeListener;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.*;
 
 public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget> {
 
-    Color currentColor;
+    CustomColor currentColor;
     boolean isChanging = true;
     NumberInput brightnes;
     NumberInput red, green, blue;
@@ -21,7 +23,7 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
     public static final Point CENTER = new Point(54, 72);
     public static final Point BAR = new Point(108, 22);
 
-    public ColorPickerWidget(Point pos, Screen addedOn, Color currentColor, ColorPreviewWidget previewWidget) {
+    public ColorPickerWidget(Point pos, Screen addedOn, CustomColor currentColor, ColorPreviewWidget previewWidget) {
         super(pos, new Dimension(123,181), addedOn);
         previewWidget.addWidget(this,(IAddButtonWrapper) addedOn);
         this.previewWidget = previewWidget;
@@ -54,11 +56,11 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
                 if (distance > radius) {
                     continue;
                 }
-                fill(matrixStack, x+CENTER.x+this.x, y+CENTER.y+this.y, x+1+CENTER.x+this.x, y+1+CENTER.y+this.y, RGBofPosition(x,y,radius,1));
+                fill(matrixStack, x+CENTER.x+this.x, y+CENTER.y+this.y, x+1+CENTER.x+this.x, y+1+CENTER.y+this.y, RGBofPosition(x,y,radius,1).getRGB());
             }
         }
         for(int brightness = 0; brightness < 100; brightness+=1) {
-            fill(matrixStack, this.x+BAR.x, this.y+ BAR.y + brightness, this.x+BAR.x+10, this.y+ BAR.y + brightness + 1, RGBofPosition(mousePos.x, mousePos.y, 50, 1-brightness/100f));
+            fill(matrixStack, this.x+BAR.x, this.y+ BAR.y + brightness, this.x+BAR.x+10, this.y+ BAR.y + brightness + 1, RGBofPosition(mousePos.x, mousePos.y, 50, 1-brightness/100f).getRGB());
         }
         bindTexture(texture);
         drawPartOnScreen(matrixStack, new Point(mousePos.x-1+CENTER.x, mousePos.y-1+CENTER.y), new Dimension(3,3), new Point(123,0));
@@ -66,13 +68,13 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
 
     }
 
-    private static int RGBofPosition(int x, int y, int radius, float brightness) {
+    private static CustomColor RGBofPosition(int x, int y, int radius, float brightness) {
         double distance = Math.sqrt(x*x+y*y);
         double angle = Math.atan2(y, x);
         double degrees = Math.toDegrees(angle);
         float hue = (float) (degrees < 0 ? 360 + degrees : degrees);
         float saturation = (float) (distance/radius);
-        return Color.HSBtoRGB(hue/360f, saturation, brightness);
+        return CustomColor.HSBtoRGB(hue/360f, saturation, brightness);
     }
 
     private Point getPositionOfColor() {
@@ -84,7 +86,7 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
         return new Point(x,y);
     }
     private float[] getHSBofColor() {
-        return Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null);
+        return currentColor.toHSB();
     }
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
@@ -113,7 +115,7 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
         if (distance > 50) {
             return false;
         }
-        currentColor = new Color(RGBofPosition(dx,dy,50, getBrightness()));
+        currentColor = RGBofPosition(dx,dy,50, getBrightness());
         updateColor(VarChanged.ALL);
         return true;
     }
@@ -123,13 +125,13 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
     }
 
     private float getHue() {
-        return Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[0];
+        return currentColor.toHSB()[0];
     }
     private float getSaturation() {
-        return Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[1];
+        return currentColor.toHSB()[1];
     }
     private float getBrightness() {
-        return Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[2];
+        return currentColor.toHSB()[2];
     }
     private void updateColor(VarChanged varChanged) {
         isChanging = true;
@@ -154,7 +156,7 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
         @Override
         public void onChange(NumberInput widget) {
             if(isChanging) return;
-            currentColor = new Color(widget.getValue(), currentColor.getGreen(), currentColor.getBlue());
+            currentColor = new CustomColor(widget.getValue(), currentColor.getGreen(), currentColor.getBlue());
             updateColor(VarChanged.RED);
         }
     }
@@ -162,7 +164,7 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
         @Override
         public void onChange(NumberInput widget) {
             if(isChanging) return;
-            currentColor = new Color(currentColor.getRed(), widget.getValue(), currentColor.getBlue());
+            currentColor = new CustomColor(currentColor.getRed(), widget.getValue(), currentColor.getBlue());
             updateColor(VarChanged.GREEN);
         }
     }
@@ -170,7 +172,7 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
         @Override
         public void onChange(NumberInput widget) {
             if(isChanging) return;
-            currentColor = new Color(currentColor.getRed(), currentColor.getGreen(), widget.getValue());
+            currentColor = new CustomColor(currentColor.getRed(), currentColor.getGreen(), widget.getValue());
             updateColor(VarChanged.BLUE);
         }
     }
@@ -178,7 +180,7 @@ public class ColorPickerWidget extends AbstractAdvancedWidget<ColorPickerWidget>
         @Override
         public void onChange(NumberInput widget) {
             if(isChanging)return;
-            currentColor = new Color(Color.HSBtoRGB(getHue(), getSaturation(), widget.getValue() / 100f));
+            currentColor = CustomColor.HSBtoRGB(getHue(), getSaturation(), widget.getValue() / 100f);
             updateColor(VarChanged.BRIGHTNESS);
         }
     }

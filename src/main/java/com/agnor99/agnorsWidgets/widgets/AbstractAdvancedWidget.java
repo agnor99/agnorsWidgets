@@ -9,8 +9,9 @@ import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 
-import java.awt.Point;
-import java.awt.Dimension;
+
+import com.agnor99.agnorsWidgets.util.Point;
+import com.agnor99.agnorsWidgets.util.Dimension;
 import java.util.List;
 
 public class AbstractAdvancedWidget<RealWidget extends Widget> extends Widget implements IAdvancedWidget<RealWidget>{

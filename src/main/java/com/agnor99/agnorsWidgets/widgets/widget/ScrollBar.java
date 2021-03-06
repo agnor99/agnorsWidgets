@@ -1,7 +1,7 @@
 package com.agnor99.agnorsWidgets.widgets.widget;
 
 import com.agnor99.agnorsWidgets.AgnorsWidgets;
-import com.agnor99.agnorsWidgets.MathUtil;
+import com.agnor99.agnorsWidgets.util.MathUtil;
 import com.agnor99.agnorsWidgets.widgets.AbstractAdvancedWidget;
 import com.agnor99.agnorsWidgets.widgets.listener.ScrollBarListener;
 import com.agnor99.agnorsWidgets.widgets.listener.WidgetChangeListener;
@@ -10,7 +10,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
-import java.awt.*;
+import com.agnor99.agnorsWidgets.util.Point;
+import com.agnor99.agnorsWidgets.util.Dimension;
 
 public class ScrollBar extends AbstractAdvancedWidget<ScrollBar> {
     private static final int WIDTH = 13;

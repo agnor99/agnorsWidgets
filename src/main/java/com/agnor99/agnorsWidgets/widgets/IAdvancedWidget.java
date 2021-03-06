@@ -7,7 +7,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.Point;
+import com.agnor99.agnorsWidgets.util.Point;
 import java.util.List;
 
 public interface IAdvancedWidget<RealWidget extends Widget> {

@@ -1,4 +1,4 @@
-package com.agnor99.agnorsWidgets;
+package com.agnor99.agnorsWidgets.util;
 
 public class MathUtil {
     public static double mapValue(double value, double min, double max) {

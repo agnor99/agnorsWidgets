@@ -1,13 +1,15 @@
 package com.agnor99.agnorsWidgets.widgets.widget;
 
+import com.agnor99.agnorsWidgets.util.CustomColor;
 import com.agnor99.agnorsWidgets.widgets.AbstractAdvancedWidget;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
 
-import java.awt.*;
+import com.agnor99.agnorsWidgets.util.Point;
+import com.agnor99.agnorsWidgets.util.Dimension;
 
 public class ColorPreviewWidget extends AbstractAdvancedWidget<ColorPreviewWidget> {
-    Color color = Color.RED;
+    CustomColor color = new CustomColor(25,0,0);
     boolean hasPicker = false;
     ColorPickerWidget widget;
     public ColorPreviewWidget(Point pos, Dimension size, Screen addedOn) {
