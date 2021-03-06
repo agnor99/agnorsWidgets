@@ -1,0 +1,39 @@
+modLoader="javafml" #mandatory
+loaderVersion="[34,)"
+license="LGPL V 2.1"
+issueTrackerURL="http://my.issue.tracker/" #optional
+[[mods]] #mandatory
+# The modid of the mod
+modId="agnors_widgets" #mandatory
+# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
+version="${file.jarVersion}" #mandatory
+ # A display name for the mod
+displayName="Agnors Widgets"
+logoFile="examplemod.png" #optional
+# A text field displayed in the mod UI
+credits="Thanks for some of the inspiration for widgets by many mod authors" #optional
+# A text field displayed in the mod UI
+authors="agnor99" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+This mod add multiple widgets for any use you can think of
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.agnors_widgets]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[34,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.agnors_widgets]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.2,)"
+    ordering="NONE"
+    side="BOTH"
